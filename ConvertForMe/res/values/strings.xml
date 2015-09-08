@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Convert For Me</string>
+    <string name="Hello">Hello !</string>
+    <string name="Choose">Pick a conversion</string>
+    <string-array name="TypeOfConversion">
+    	<item>Kgs -> Lbs</item>
+    	<item>Lbs -> Kgs</item>
+    	<item>°C -> °F</item>
+    	<item>°F -> °C</item>    
+    </string-array>
+    
+    <string name="ValueText">Enter value here</string>
+    <string name="Convert">Convert</string>
+    <string name="action_settings">Settings</string>
+
+</resources>
