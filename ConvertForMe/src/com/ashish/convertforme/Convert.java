@@ -1,16 +1,23 @@
 package com.ashish.convertforme;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.database.DataSetObserver;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -22,6 +29,7 @@ public class Convert extends Activity
 	// Screen widgets
 	private Spinner conversions;
 	private Button convertButton;
+	private Button speakButton;
 	private EditText givenVal;
 	private TextView convertedVal;
 
@@ -30,6 +38,8 @@ public class Convert extends Activity
 	private double givenValue;
 	private double convertedValue;
 	private String unit;
+	
+	private static final int REQUEST_CODE = 1234;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +50,27 @@ public class Convert extends Activity
 		givenVal = (EditText)findViewById(R.id.editText1);
 		convertButton = (Button)findViewById(R.id.button1);
 		convertedVal = (TextView)findViewById(R.id.textView1);
+		speakButton  = (Button)findViewById(R.id.speakButton);
 		
+		// Disable button if no recognition service is present
+        PackageManager pm = getPackageManager();
+        List<ResolveInfo> activities = pm.queryIntentActivities(
+                new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH), 0);
+        if (activities.size() == 0)
+        {
+            speakButton.setEnabled(false);
+            speakButton.setText("Recognizer not present");
+        }
+		
+        speakButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View view) 
+			{
+				speakButtonClicked(view);
+			}
+		});
+        
 		convertButton.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -116,5 +146,37 @@ public class Convert extends Activity
 	{
 		return (Lbs * 0.45);
 	}
-		
+	
+	public void speakButtonClicked(View v)
+	{
+	    startVoiceRecognitionActivity();
+	}
+
+	/**
+	 * Fire an intent to start the voice recognition activity.
+	 */
+	private void startVoiceRecognitionActivity()
+	{
+	    Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+	    intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+	            RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+	    intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Speak the value");
+	    startActivityForResult(intent, REQUEST_CODE);
+	}
+
+	/**
+	 * Handle the results from the voice recognition activity.
+	 */
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+	    if (requestCode == REQUEST_CODE && resultCode == RESULT_OK)
+	    {
+	        // Populate the wordsList with the String values the recognition engine thought it heard
+	        ArrayList<String> matches = data.getStringArrayListExtra(
+	                RecognizerIntent.EXTRA_RESULTS);
+	        givenVal.setText(matches.get(0));
+	    }
+	    super.onActivityResult(requestCode, resultCode, data);
+	}
 }
