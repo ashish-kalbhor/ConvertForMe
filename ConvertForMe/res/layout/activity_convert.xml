@@ -54,14 +54,14 @@
         android:textSize="30sp"
         />
 
-    <Button
-        android:id="@+id/speakButton"
-        style="?android:attr/buttonStyleSmall"
+    <ImageButton
+        android:id="@+id/imageButton1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editText1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="13dp"
-        android:text="*" />
+        android:layout_above="@+id/button1"
+        android:layout_alignTop="@+id/editText1"
+        android:layout_toRightOf="@+id/editText1"
+        android:layout_alignBottom="@+id/editText1"
+        android:src="@android:drawable/ic_btn_speak_now" />
 
 </RelativeLayout>

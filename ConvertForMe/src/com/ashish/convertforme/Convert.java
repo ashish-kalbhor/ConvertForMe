@@ -20,6 +20,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,7 +30,7 @@ public class Convert extends Activity
 	// Screen widgets
 	private Spinner conversions;
 	private Button convertButton;
-	private Button speakButton;
+	private ImageButton speakButton;
 	private EditText givenVal;
 	private TextView convertedVal;
 
@@ -50,7 +51,7 @@ public class Convert extends Activity
 		givenVal = (EditText)findViewById(R.id.editText1);
 		convertButton = (Button)findViewById(R.id.button1);
 		convertedVal = (TextView)findViewById(R.id.textView1);
-		speakButton  = (Button)findViewById(R.id.speakButton);
+		speakButton  = (ImageButton)findViewById(R.id.imageButton1);
 		
 		// Disable button if no recognition service is present
         PackageManager pm = getPackageManager();
@@ -59,7 +60,6 @@ public class Convert extends Activity
         if (activities.size() == 0)
         {
             speakButton.setEnabled(false);
-            speakButton.setText("Recognizer not present");
         }
 		
         speakButton.setOnClickListener(new View.OnClickListener() {
@@ -160,7 +160,7 @@ public class Convert extends Activity
 	    Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
 	    intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
 	            RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-	    intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Speak the value");
+	    intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Listening your input..");
 	    startActivityForResult(intent, REQUEST_CODE);
 	}
 
