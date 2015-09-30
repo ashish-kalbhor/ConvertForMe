@@ -8,16 +8,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -27,6 +23,10 @@ import android.widget.Toast;
 
 public class Convert extends Activity 
 {
+	private static final String F_C = "°F -> °C";
+	private static final String C_F = "°C -> °F";
+	private static final String LBS_KGS = "Lbs -> Kgs";
+	private static final String KGS_LBS = "Kgs -> Lbs";
 	// Screen widgets
 	private Spinner conversions;
 	private Button convertButton;
@@ -79,22 +79,22 @@ public class Convert extends Activity
 				try {
 					typeOfConversion = String.valueOf(conversions.getSelectedItem());
 					givenValue = Double.parseDouble(givenVal.getText().toString());
-					if(typeOfConversion.equalsIgnoreCase("Kgs -> Lbs"))
+					if(typeOfConversion.equalsIgnoreCase(KGS_LBS))
 					{
 						convertedValue = toLbs(givenValue);
 						unit = "Lbs";
 					}
-					else if(typeOfConversion.equalsIgnoreCase("Lbs -> Kgs"))
+					else if(typeOfConversion.equalsIgnoreCase(LBS_KGS))
 					{
 						convertedValue = toKgs(givenValue);
 						unit = "Kgs";
 					}
-					else if(typeOfConversion.equalsIgnoreCase("°C -> °F"))
+					else if(typeOfConversion.equalsIgnoreCase(C_F))
 					{
 						convertedValue = toFahrenheit(givenValue);
 						unit = "°F";
 					}
-					else if(typeOfConversion.equalsIgnoreCase("°F -> °C"))
+					else if(typeOfConversion.equalsIgnoreCase(F_C))
 					{
 						convertedValue = toCelsius(givenValue);
 						unit = "°C";
@@ -122,6 +122,39 @@ public class Convert extends Activity
 			@Override
 			public void onNothingSelected(AdapterView<?> arg0) {
 				
+			}
+		});
+		
+		conversions.setOnItemSelectedListener(new OnItemSelectedListener() 
+		{
+			@Override
+			public void onItemSelected(AdapterView<?> aview, View view, int pos, long id) 
+			{
+				String item = aview.getItemAtPosition(pos).toString();
+				View root = ((ViewGroup) findViewById(android.R.id.content)).getChildAt(0);
+				switch (item) 
+				{
+					case KGS_LBS:
+						root.setBackgroundResource(R.color.CornflowerBlue);
+						break;
+					case LBS_KGS:
+						root.setBackgroundResource(R.color.Aquamarine);
+						break;
+					case F_C:
+						root.setBackgroundResource(R.color.DarkCyan);
+						break;
+					case C_F:
+						root.setBackgroundResource(R.color.DarkSlateBlue);
+						break;
+					default:
+						break;
+				}
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) 
+			{
+				// Do nothing				
 			}
 		});
 		
@@ -160,7 +193,7 @@ public class Convert extends Activity
 	    Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
 	    intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
 	            RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-	    intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Listening your input..");
+	    intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Listening..");
 	    startActivityForResult(intent, REQUEST_CODE);
 	}
 
