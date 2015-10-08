@@ -34,12 +34,13 @@
 
     <Button
         android:id="@+id/button1"
-        android:background="@drawable/custombutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/editText1"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="60dp"
+        android:background="@drawable/custombutton"
+        android:minWidth="100dip"
         android:text="@string/Convert"
         android:textColor="@color/Black" />
 
@@ -65,5 +66,13 @@
         android:layout_toRightOf="@+id/editText1"
         android:layout_alignBottom="@+id/editText1"
         android:src="@android:drawable/ic_btn_speak_now" />
+
+    <android.gesture.GestureOverlayView
+        android:id="@+id/swipteGesture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/textView1"
+        android:layout_centerHorizontal="true" >
+    </android.gesture.GestureOverlayView>
 
 </RelativeLayout>

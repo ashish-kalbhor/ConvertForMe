@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.gesture.GestureOverlayView;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.view.View;
@@ -33,6 +34,7 @@ public class Convert extends Activity
 	private ImageButton speakButton;
 	private EditText givenVal;
 	private TextView convertedVal;
+	private GestureOverlayView swipeGesture;
 
 	// Variables
 	private String typeOfConversion;
@@ -52,6 +54,7 @@ public class Convert extends Activity
 		convertButton = (Button)findViewById(R.id.button1);
 		convertedVal = (TextView)findViewById(R.id.textView1);
 		speakButton  = (ImageButton)findViewById(R.id.imageButton1);
+		swipeGesture = (GestureOverlayView)findViewById(R.id.swipteGesture);
 		
 		// Disable button if no recognition service is present
         PackageManager pm = getPackageManager();
@@ -157,6 +160,8 @@ public class Convert extends Activity
 				// Do nothing				
 			}
 		});
+		
+		
 		
 	}
 
