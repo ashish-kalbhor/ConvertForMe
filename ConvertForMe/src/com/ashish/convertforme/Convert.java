@@ -11,6 +11,8 @@ import android.content.pm.ResolveInfo;
 import android.gesture.GestureOverlayView;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
+import android.view.GestureDetector.OnGestureListener;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -22,7 +24,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class Convert extends Activity 
+public class Convert extends Activity implements OnGestureListener
 {
 	private static final String F_C = "°F -> °C";
 	private static final String C_F = "°C -> °F";
@@ -216,5 +218,47 @@ public class Convert extends Activity
 	        givenVal.setText(matches.get(0));
 	    }
 	    super.onActivityResult(requestCode, resultCode, data);
+	}
+
+	@Override
+	public boolean onDown(MotionEvent e) {
+		return false;
+	}
+
+	@Override
+	public boolean onFling(MotionEvent start, MotionEvent finish, float velocityX, float velocityY) 
+	{
+			if (start.getRawY() < finish.getRawY()) 
+			{
+	            // Clear text
+				givenVal = (EditText)findViewById(R.id.editText1);
+				givenVal.setText("");
+			} else {
+				// Clear text
+				givenVal = (EditText)findViewById(R.id.editText1);
+				givenVal.setText("");
+			}
+			return true;
+	}
+
+	@Override
+	public void onLongPress(MotionEvent e) {
+		
+	}
+
+	@Override
+	public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
+			float distanceY) {
+		return false;
+	}
+
+	@Override
+	public void onShowPress(MotionEvent e) {
+		
+	}
+
+	@Override
+	public boolean onSingleTapUp(MotionEvent e) {
+		return false;
 	}
 }
