@@ -11,6 +11,8 @@ import android.content.pm.ResolveInfo;
 import android.gesture.GestureOverlayView;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
+import android.support.v4.view.GestureDetectorCompat;
+import android.view.GestureDetector;
 import android.view.GestureDetector.OnGestureListener;
 import android.view.MotionEvent;
 import android.view.View;
@@ -36,7 +38,7 @@ public class Convert extends Activity implements OnGestureListener
 	private ImageButton speakButton;
 	private EditText givenVal;
 	private TextView convertedVal;
-	private GestureOverlayView swipeGesture;
+	private GestureDetector gDetector; 
 
 	// Variables
 	private String typeOfConversion;
@@ -56,8 +58,8 @@ public class Convert extends Activity implements OnGestureListener
 		convertButton = (Button)findViewById(R.id.button1);
 		convertedVal = (TextView)findViewById(R.id.textView1);
 		speakButton  = (ImageButton)findViewById(R.id.imageButton1);
-		swipeGesture = (GestureOverlayView)findViewById(R.id.swipteGesture);
-		
+		//swipeGesture = (GestureOverlayView)findViewById(R.id.swipteGesture);
+		gDetector = new GestureDetector(this);
 		// Disable button if no recognition service is present
         PackageManager pm = getPackageManager();
         List<ResolveInfo> activities = pm.queryIntentActivities(
@@ -231,34 +233,41 @@ public class Convert extends Activity implements OnGestureListener
 			if (start.getRawY() < finish.getRawY()) 
 			{
 	            // Clear text
-				givenVal = (EditText)findViewById(R.id.editText1);
 				givenVal.setText("");
+				convertedVal.setText("");
 			} else {
 				// Clear text
-				givenVal = (EditText)findViewById(R.id.editText1);
-				givenVal.setText("");
 			}
 			return true;
 	}
 
 	@Override
-	public void onLongPress(MotionEvent e) {
+	public void onLongPress(MotionEvent e) 
+	{
 		
 	}
 
 	@Override
-	public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
-			float distanceY) {
+	public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) 
+	{
 		return false;
 	}
 
 	@Override
-	public void onShowPress(MotionEvent e) {
+	public void onShowPress(MotionEvent e)
+	{
 		
 	}
 
 	@Override
-	public boolean onSingleTapUp(MotionEvent e) {
+	public boolean onSingleTapUp(MotionEvent e) 
+	{
 		return false;
+	}
+	
+	@Override
+	public boolean onTouchEvent(MotionEvent event)
+	{
+		return gDetector.onTouchEvent(event);
 	}
 }
