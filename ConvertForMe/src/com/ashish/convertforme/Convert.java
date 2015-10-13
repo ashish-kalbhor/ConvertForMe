@@ -8,10 +8,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.gesture.GestureOverlayView;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
-import android.support.v4.view.GestureDetectorCompat;
 import android.view.GestureDetector;
 import android.view.GestureDetector.OnGestureListener;
 import android.view.MotionEvent;
@@ -26,6 +24,18 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * 
+ * @author Ashish Kalbhor
+ * 
+ * Convert class is responsible for loading the User choice
+ * of conversion unit, retrieve the input value and output
+ * the converted value.
+ * Off-line Voice Recognition feature is available.
+ * Convert class implements OnGestureListener to add a swipe
+ * gesture for clearing the screen input and output.
+ *
+ */
 public class Convert extends Activity implements OnGestureListener
 {
 	private static final String F_C = "°F -> °C";
@@ -58,8 +68,8 @@ public class Convert extends Activity implements OnGestureListener
 		convertButton = (Button)findViewById(R.id.button1);
 		convertedVal = (TextView)findViewById(R.id.textView1);
 		speakButton  = (ImageButton)findViewById(R.id.imageButton1);
-		//swipeGesture = (GestureOverlayView)findViewById(R.id.swipteGesture);
 		gDetector = new GestureDetector(this);
+		
 		// Disable button if no recognition service is present
         PackageManager pm = getPackageManager();
         List<ResolveInfo> activities = pm.queryIntentActivities(
@@ -169,27 +179,51 @@ public class Convert extends Activity implements OnGestureListener
 		
 	}
 
+	/**
+	 * Convert given degree celsius into degree fahrenheit
+	 * @param celsius
+	 * @return fahrenheit
+	 */
 	protected double toFahrenheit(double celsius)
 	{
 		return (celsius * (9/5) + 32.0);
 	}
 	
+	/**
+	 * Convert given degree fahrenheit into degree celsius
+	 * @param fahrenheit
+	 * @return celsius
+	 */
 	protected double toCelsius(double fahrenheit)
 	{
 		return (fahrenheit - 32) * 5 / 9;
 	}
 	
+	/**
+	 * Convert given Kgs into Lbs.
+	 * @param kgs
+	 * @return Lbs
+	 */
 	protected double toLbs(double kgs)
 	{
 		return (kgs * 2.2);
 	}
 	
+	/**
+	 * Convert given Lbs into Kgs.
+	 * @param Lbs
+	 * @return Kgs
+	 */
 	protected double toKgs(double Lbs)
 	{
 		return (Lbs * 0.45);
 	}
 	
-	public void speakButtonClicked(View v)
+	/**
+	 * Starts listening to the voice input.
+	 * @param view
+	 */
+	public void speakButtonClicked(View view)
 	{
 	    startVoiceRecognitionActivity();
 	}
@@ -227,6 +261,10 @@ public class Convert extends Activity implements OnGestureListener
 		return false;
 	}
 
+	/**
+	 * Recognize the swipe gesture.
+	 * Swipe movement from up to down cleans the input and output texts.
+	 */
 	@Override
 	public boolean onFling(MotionEvent start, MotionEvent finish, float velocityX, float velocityY) 
 	{
@@ -244,7 +282,7 @@ public class Convert extends Activity implements OnGestureListener
 	@Override
 	public void onLongPress(MotionEvent e) 
 	{
-		
+		// do nothing
 	}
 
 	@Override
@@ -256,7 +294,7 @@ public class Convert extends Activity implements OnGestureListener
 	@Override
 	public void onShowPress(MotionEvent e)
 	{
-		
+		// do nothing
 	}
 
 	@Override
