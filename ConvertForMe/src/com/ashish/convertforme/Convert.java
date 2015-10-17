@@ -126,6 +126,56 @@ public class Convert extends Activity implements OnGestureListener
 						convertedValue = toCelsius(givenValue);
 						unit = "°C";
 					}
+					else if(typeOfConversion.equalsIgnoreCase(GRAM_OZ))
+					{
+						convertedValue = toOzs(givenValue);
+						unit = "Oz";
+					}
+					else if(typeOfConversion.equalsIgnoreCase(OZ_GRAM))
+					{
+						convertedValue = toGms(givenValue);
+						unit = "gms";
+					}
+					else if(typeOfConversion.equalsIgnoreCase(CMS_INCH))
+					{
+						convertedValue = toInches(givenValue);
+						unit = "inches";
+					}
+					else if(typeOfConversion.equalsIgnoreCase(INCH_CMS))
+					{
+						convertedValue = toCms(givenValue);
+						unit = "cms";
+					}
+					else if(typeOfConversion.equalsIgnoreCase(MET_YARD))
+					{
+						convertedValue = toYards(givenValue);
+						unit = "yards";
+					}
+					else if(typeOfConversion.equalsIgnoreCase(YARD_MET))
+					{
+						convertedValue = toMeter(givenValue);
+						unit = "meters";
+					}
+					else if(typeOfConversion.equalsIgnoreCase(LTR_PINT))
+					{
+						convertedValue = toPints(givenValue);
+						unit = "pints";
+					}
+					else if(typeOfConversion.equalsIgnoreCase(PINT_LTR))
+					{
+						convertedValue = toPLiters(givenValue);
+						unit = "liters";
+					}
+					else if(typeOfConversion.equalsIgnoreCase(LTR_QUART))
+					{
+						convertedValue = toQuarts(givenValue);
+						unit = "quarts";
+					}
+					else if(typeOfConversion.equalsIgnoreCase(QUART_LTR))
+					{
+						convertedValue = toQLiters(givenValue);
+						unit = "liters";
+					}
 
 					convertedVal.setEnabled(true);
 					DecimalFormat twoDigitFormat = new DecimalFormat("#.##");
@@ -227,6 +277,106 @@ public class Convert extends Activity implements OnGestureListener
 	protected double toKgs(double Lbs)
 	{
 		return (Lbs * 0.45);
+	}
+	
+	/**
+	 * Convert given Gms into Ozs.
+	 * @param gms
+	 * @return Ozs
+	 */
+	protected double toOzs(double gms)
+	{
+		return (gms * 0.035274);
+	}
+	
+	/**
+	 * Convert given Ozs into Gms.
+	 * @param Ozs
+	 * @return Gms
+	 */
+	protected double toGms(double Ozs)
+	{
+		return (Ozs * 28.3495);
+	}
+	
+	/**
+	 * Convert given inches into Cms.
+	 * @param inches
+	 * @return Cms
+	 */
+	protected double toCms(double inches)
+	{
+		return (inches * 2.54);
+	}
+	
+	/**
+	 * Convert given cms into Inches.
+	 * @param cms
+	 * @return Inches
+	 */
+	protected double toInches(double cms)
+	{
+		return (cms * 0.393701);
+	}
+	
+	/**
+	 * Convert given mtr into Yards.
+	 * @param mtr
+	 * @return Yards
+	 */
+	protected double toYards(double mtr)
+	{
+		return (mtr * 1.09361);
+	}
+	
+	/**
+	 * Convert given yards into Meter.
+	 * @param yards
+	 * @return Meter
+	 */
+	protected double toMeter(double yards)
+	{
+		return (yards * 0.9144);
+	}
+	
+	/**
+	 * Convert given liters into Pints.
+	 * @param liters
+	 * @return Pints
+	 */
+	protected double toPints(double liters)
+	{
+		return (liters * 2.11338);
+	}
+	
+	/**
+	 * Convert given Pints into liters.
+	 * @param Pints
+	 * @return liters
+	 */
+	protected double toPLiters(double pints)
+	{
+		return (pints * 0.473176);
+	}
+	
+	/**
+	 * Convert given liters into Quarts.
+	 * @param liters
+	 * @return Quarts
+	 */
+	protected double toQuarts(double liters)
+	{
+		return (liters * 1.05669);
+	}
+	
+	/**
+	 * Convert given quarts into liters.
+	 * @param quarts
+	 * @return liters
+	 */
+	protected double toQLiters(double quarts)
+	{
+		return (quarts * 0.946353);
 	}
 	
 	/**

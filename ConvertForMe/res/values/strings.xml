@@ -8,7 +8,17 @@
     	<item>Kgs -> Lbs</item>
     	<item>Lbs -> Kgs</item>
     	<item>°C -> °F</item>
-    	<item>°F -> °C</item>    
+    	<item>°F -> °C</item>  
+    	<item>grams -> Oz</item> 
+    	<item>Oz -> grams</item> 
+    	<item>Inch -> cm</item> 
+    	<item>cm -> Inch</item> 
+    	<item>meters -> yards</item> 
+    	<item>yards -> meters</item> 
+    	<item>ltr -> pint</item> 
+    	<item>pint -> ltr</item> 
+    	<item>ltr -> quart</item> 
+    	<item>quart -> ltr</item> 
     </string-array>
     
     <string name="ValueText">Enter value here</string>
