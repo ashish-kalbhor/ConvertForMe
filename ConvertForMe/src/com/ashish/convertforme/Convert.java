@@ -42,6 +42,16 @@ public class Convert extends Activity implements OnGestureListener
 	private static final String C_F = "°C -> °F";
 	private static final String LBS_KGS = "Lbs -> Kgs";
 	private static final String KGS_LBS = "Kgs -> Lbs";
+	private static final String GRAM_OZ = "grams -> Oz";
+	private static final String OZ_GRAM = "Oz -> grams";
+	private static final String INCH_CMS = "Inch -> cm";
+	private static final String CMS_INCH = "cm -> Inch";
+	private static final String MET_YARD = "meters -> yards";
+	private static final String YARD_MET = "yards -> meters";
+	private static final String LTR_PINT = "ltr -> pint";
+	private static final String PINT_LTR = "pint -> ltr";
+	private static final String LTR_QUART = "ltr -> quart";
+	private static final String QUART_LTR = "quart -> ltr";
 	// Screen widgets
 	private Spinner conversions;
 	private Button convertButton;
