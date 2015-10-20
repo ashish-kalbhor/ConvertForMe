@@ -3,6 +3,7 @@ package com.ashish.convertforme;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,6 +11,8 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
+import android.speech.tts.TextToSpeech;
+import android.speech.tts.TextToSpeech.OnInitListener;
 import android.view.GestureDetector;
 import android.view.GestureDetector.OnGestureListener;
 import android.view.MotionEvent;
@@ -25,18 +28,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 /**
- * 
- * @author Ashish Kalbhor
- * 
  * Convert class is responsible for loading the User choice
  * of conversion unit, retrieve the input value and output
  * the converted value.
  * Off-line Voice Recognition feature is available.
- * Convert class implements OnGestureListener to add a swipe
+ * Convert class implements <i>OnGestureListener</i> to add a swipe
  * gesture for clearing the screen input and output.
  *
+ * @author Ashish Kalbhor
+ * 
  */
-public class Convert extends Activity implements OnGestureListener
+public class Convert extends Activity implements OnGestureListener, OnInitListener
 {
 	private static final String F_C = "°F -> °C";
 	private static final String C_F = "°C -> °F";
@@ -59,12 +61,14 @@ public class Convert extends Activity implements OnGestureListener
 	private EditText givenVal;
 	private TextView convertedVal;
 	private GestureDetector gDetector; 
+	private TextToSpeech speech;
 
 	// Variables
 	private String typeOfConversion;
 	private double givenValue;
 	private double convertedValue;
 	private String unit;
+	private boolean canSpeak = false;
 	
 	private static final int REQUEST_CODE = 1234;
 	
@@ -88,6 +92,9 @@ public class Convert extends Activity implements OnGestureListener
         {
             speakButton.setEnabled(false);
         }
+        
+        // Initialize text to speech converter.
+        speech = new TextToSpeech(this, this);
 		
         speakButton.setOnClickListener(new View.OnClickListener() {
 			
@@ -179,8 +186,15 @@ public class Convert extends Activity implements OnGestureListener
 
 					convertedVal.setEnabled(true);
 					DecimalFormat twoDigitFormat = new DecimalFormat("#.##");
-					convertedVal.setText(
-							String.valueOf(twoDigitFormat.format(convertedValue)) + " " + unit);
+					String result = String.valueOf(twoDigitFormat.format(convertedValue));
+					convertedVal.setText(result + " " + unit);
+					
+					
+					if(canSpeak)
+					{
+						speech.speak("Answer is " + result + " " + unit, TextToSpeech.QUEUE_FLUSH, null);
+					}
+					
 				} catch (NumberFormatException e) {
 					Toast.makeText(getApplicationContext(), "Please check the input data !", Toast.LENGTH_LONG).show();
 				}				
@@ -212,16 +226,26 @@ public class Convert extends Activity implements OnGestureListener
 				switch (item) 
 				{
 					case KGS_LBS:
+					case LBS_KGS:
+					case GRAM_OZ:
+					case OZ_GRAM:
 						root.setBackgroundResource(R.color.CornflowerBlue);
 						break;
-					case LBS_KGS:
+					case F_C:
+					case C_F:
 						root.setBackgroundResource(R.color.Aquamarine);
 						break;
-					case F_C:
-						root.setBackgroundResource(R.color.DarkCyan);
-						break;
-					case C_F:
+					case INCH_CMS:
+					case CMS_INCH:
+					case MET_YARD:
+					case YARD_MET:
 						root.setBackgroundResource(R.color.DarkSlateBlue);
+						break;
+					case LTR_PINT:
+					case PINT_LTR:
+					case LTR_QUART:
+					case QUART_LTR:
+						root.setBackgroundResource(R.color.Azure);
 						break;
 					default:
 						break;
@@ -234,9 +258,28 @@ public class Convert extends Activity implements OnGestureListener
 				// Do nothing				
 			}
 		});
-		
-		
-		
+	}
+	
+	@Override
+	protected void onPause() 
+	{
+		if(speech !=null)
+		{
+			speech.stop();
+			speech.shutdown();
+	    }
+	    super.onPause();
+	}
+	
+	@Override
+	protected void onDestroy() 
+	{
+		if(speech != null)
+		{
+			speech.stop();
+			speech.shutdown();
+		}
+		super.onDestroy();
 	}
 
 	/**
@@ -433,8 +476,6 @@ public class Convert extends Activity implements OnGestureListener
 	            // Clear text
 				givenVal.setText("");
 				convertedVal.setText("");
-			} else {
-				// Clear text
 			}
 			return true;
 	}
@@ -467,5 +508,19 @@ public class Convert extends Activity implements OnGestureListener
 	public boolean onTouchEvent(MotionEvent event)
 	{
 		return gDetector.onTouchEvent(event);
+	}
+
+	@Override
+	public void onInit(int status) 
+	{
+		if(status  != TextToSpeech.ERROR)
+		{
+			speech.setLanguage(Locale.getDefault());
+			canSpeak = true;
+		}
+		else
+		{
+			Toast.makeText(getApplicationContext(), "TTS Init Failed", Toast.LENGTH_SHORT).show();
+		}
 	}
 }
