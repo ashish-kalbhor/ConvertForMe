@@ -9,3 +9,4 @@ A utility tool for basic conversion of units in day-to-day life.
 
 3. 4 conversions available.
 
+4. Speech audible to read out the result.
