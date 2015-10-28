@@ -77,11 +77,11 @@ public class Convert extends Activity implements OnGestureListener, OnInitListen
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_convert);
 		
-		conversions = (Spinner)findViewById(R.id.spinner1);
-		givenVal = (EditText)findViewById(R.id.editText1);
-		convertButton = (Button)findViewById(R.id.button1);
-		convertedVal = (TextView)findViewById(R.id.textView1);
-		speakButton  = (ImageButton)findViewById(R.id.imageButton1);
+		conversions = (Spinner)findViewById(R.id.ConversionSpinner);
+		givenVal = (EditText)findViewById(R.id.inputText);
+		convertButton = (Button)findViewById(R.id.ConvertButton);
+		convertedVal = (TextView)findViewById(R.id.OutputValue);
+		speakButton  = (ImageButton)findViewById(R.id.SpeakButton);
 		gDetector = new GestureDetector(this);
 		
 		// Disable button if no recognition service is present

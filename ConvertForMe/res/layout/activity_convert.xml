@@ -11,7 +11,7 @@
     tools:context="com.ashish.convertforme.Convert" >
 
     <Spinner
-        android:id="@+id/spinner1"
+        android:id="@+id/ConversionSpinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -22,7 +22,7 @@
         android:prompt="@string/Choose" />
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/inputText"
         android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
         android:inputType="numberDecimal" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/ConvertButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/editText1"
@@ -46,7 +46,7 @@
         android:textColor="@color/Black" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/OutputValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/button1"
@@ -59,7 +59,7 @@
         />
 
     <ImageButton
-        android:id="@+id/imageButton1"
+        android:id="@+id/SpeakButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/button1"
