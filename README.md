@@ -14,3 +14,7 @@ A utility tool for basic conversion of units in day-to-day life.
 ===============================================================================================
 
 Need to work on the UI design.
+
+1. Expected to add a Splash Screen in the beginning
+2. Select better colors for activity screens
+3. Add a Help screen.
