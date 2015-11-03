@@ -72,8 +72,10 @@ public class Convert extends Activity implements OnGestureListener, OnInitListen
 	
 	private static final int REQUEST_CODE = 1234;
 	
+	@SuppressWarnings("deprecation")
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) 
+	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_convert);
 		
@@ -96,7 +98,8 @@ public class Convert extends Activity implements OnGestureListener, OnInitListen
         // Initialize text to speech converter.
         speech = new TextToSpeech(this, this);
 		
-        speakButton.setOnClickListener(new View.OnClickListener() {
+        speakButton.setOnClickListener(new View.OnClickListener() 
+        {
 			
 			@Override
 			public void onClick(View view) 
@@ -105,12 +108,14 @@ public class Convert extends Activity implements OnGestureListener, OnInitListen
 			}
 		});
         
-		convertButton.setOnClickListener(new View.OnClickListener() {
+		convertButton.setOnClickListener(new View.OnClickListener() 
+		{
 			
 			@Override
 			public void onClick(View v) 
 			{
-				try {
+				try 
+				{
 					typeOfConversion = String.valueOf(conversions.getSelectedItem());
 					givenValue = Double.parseDouble(givenVal.getText().toString());
 					if(typeOfConversion.equalsIgnoreCase(KGS_LBS))
@@ -195,24 +200,27 @@ public class Convert extends Activity implements OnGestureListener, OnInitListen
 						speech.speak("Answer is " + result + " " + unit, TextToSpeech.QUEUE_FLUSH, null);
 					}
 					
-				} catch (NumberFormatException e) {
+				} catch (NumberFormatException e) 
+				{
 					Toast.makeText(getApplicationContext(), "Please check the input data !", Toast.LENGTH_LONG).show();
 				}				
 			}			
 		});
 		
-		conversions.setOnItemSelectedListener(new OnItemSelectedListener() {
+		conversions.setOnItemSelectedListener(new OnItemSelectedListener()
+		{
 
 			@Override
-			public void onItemSelected(AdapterView<?> arg0, View arg1,
-					int arg2, long arg3) {
+			public void onItemSelected(AdapterView<?> aview, View view, int arg2, long arg3) 
+			{
 				givenVal.setText("");
 				convertedVal.setText("");
 			}
 
 			@Override
-			public void onNothingSelected(AdapterView<?> arg0) {
-				
+			public void onNothingSelected(AdapterView<?> arg0) 
+			{
+				// Do nothing
 			}
 		});
 		
